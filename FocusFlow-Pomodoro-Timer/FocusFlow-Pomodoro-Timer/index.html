@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f7ff" />
+  <title>FocusFlow — Pomodoro Timer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="FocusFlow home"><span class="brand-icon">◷</span> FocusFlow</a>
+      <div class="top-actions">
+        <span class="status"><span class="status-dot"></span> Ready to focus</span>
+        <button class="icon-btn" id="settingsToggle" aria-label="Open settings" title="Settings">⚙</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">MAKE TIME COUNT</p>
+      <h1>One thing at a time.</h1>
+      <p class="subtitle">Find your rhythm. Do meaningful work. Take real breaks.</p>
+    </section>
+
+    <section class="timer-card" aria-label="Pomodoro timer">
+      <div class="mode-tabs" role="group" aria-label="Timer mode">
+        <button class="mode active" data-mode="work">Focus</button>
+        <button class="mode" data-mode="short">Short break</button>
+        <button class="mode" data-mode="long">Long break</button>
+      </div>
+      <div class="timer-ring" id="timerRing">
+        <svg viewBox="0 0 300 300" aria-hidden="true">
+          <circle class="ring-track" cx="150" cy="150" r="132"></circle>
+          <circle class="ring-progress" id="ringProgress" cx="150" cy="150" r="132"></circle>
+        </svg>
+        <div class="timer-content">
+          <div class="timer-label" id="timerLabel">TIME TO FOCUS</div>
+          <div class="time" id="timeDisplay" role="timer" aria-live="off">25:00</div>
+          <div class="session-note" id="sessionNote">Session 1 · Let's get started</div>
+        </div>
+      </div>
+      <div class="timer-controls">
+        <button class="reset-btn" id="resetBtn" aria-label="Reset timer" title="Reset">↺</button>
+        <button class="start-btn" id="startBtn"><span id="startIcon">▶</span> <span id="startText">Start focus</span></button>
+        <button class="skip-btn" id="skipBtn" aria-label="Skip to next session" title="Skip">↠</button>
+      </div>
+      <p class="keyboard-hint">Press <kbd>Space</kbd> to start or pause</p>
+    </section>
+
+    <section class="bottom-grid">
+      <article class="info-card">
+        <div class="card-heading"><div><span class="mini-icon">✦</span><h2>Today's progress</h2></div><span class="date" id="todayDate"></span></div>
+        <div class="stats">
+          <div><strong id="completedCount">0</strong><span>Sessions</span></div>
+          <div><strong id="focusMinutes">0<span class="unit">m</span></strong><span>Focus time</span></div>
+          <div><strong id="streakCount">0</strong><span>Current streak</span></div>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="dailyProgress"></div></div>
+        <div class="progress-caption"><span>Daily goal</span><span id="goalText">0 / 4 sessions</span></div>
+      </article>
+      <article class="info-card quote-card">
+        <span class="quote-mark">“</span>
+        <p id="quoteText">Great things are done by a series of small things brought together.</p>
+        <span class="quote-author">— Vincent van Gogh</span>
+        <button class="text-button" id="newQuote">New thought ↗</button>
+      </article>
+    </section>
+
+    <footer>Small steps. Deep focus. <span>♥</span></footer>
+  </main>
+
+  <div class="modal-backdrop" id="settingsModal" hidden>
+    <section class="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="settings-head"><div><p class="eyebrow">PERSONALIZE</p><h2 id="settingsTitle">Timer settings</h2></div><button class="icon-btn" id="closeSettings" aria-label="Close settings">✕</button></div>
+      <p class="settings-desc">Set a rhythm that works for you. Changes apply to the next timer reset.</p>
+      <label class="setting-row"><span><strong>Focus duration</strong><small>Minutes of focused work</small></span><input id="workInput" type="number" min="1" max="120" value="25"></label>
+      <label class="setting-row"><span><strong>Short break</strong><small>Quick reset between sessions</small></span><input id="shortInput" type="number" min="1" max="60" value="5"></label>
+      <label class="setting-row"><span><strong>Long break</strong><small>Take a longer pause</small></span><input id="longInput" type="number" min="1" max="90" value="15"></label>
+      <label class="setting-row"><span><strong>Sessions before long break</strong><small>How often to take a longer break</small></span><input id="cycleInput" type="number" min="2" max="8" value="4"></label>
+      <label class="switch-row"><span><strong>Sound alert</strong><small>Play a tone when a timer ends</small></span><input type="checkbox" id="soundToggle" checked><span class="switch"></span></label>
+      <label class="switch-row"><span><strong>Browser notifications</strong><small>Get notified when the timer ends</small></span><input type="checkbox" id="notifyToggle"><span class="switch"></span></label>
+      <div class="settings-actions"><button class="cancel-btn" id="cancelSettings">Cancel</button><button class="save-btn" id="saveSettings">Save settings</button></div>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
